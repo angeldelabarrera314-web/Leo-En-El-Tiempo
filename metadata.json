@@ -1,0 +1,6 @@
+{
+  "name": "Leo en el Tiempo",
+  "description": "Proyecto educativo oficial para la Feria STEM del Colegio Niño Jesús De Praga: laboratorio interactivo y máquina del tiempo sobre la historia de Colombia en el siglo XX (1900-1999) en Ciencias Sociales y Tecnología con Leo el explorador.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,130 @@
+{
+  "entities": {
+    "TravelerProfile": {
+      "title": "TravelerProfile",
+      "description": "Perfil y personaje de un crononauta escolar en el ranking nacional",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identificador único del viajero"
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre o apodo del crononauta",
+          "maxLength": 60
+        },
+        "avatarIcon": {
+          "type": "string",
+          "description": "Emoji o icono representativo del avatar",
+          "maxLength": 10
+        },
+        "characterSuit": {
+          "type": "string",
+          "description": "Tipo de traje o arquetipo temporal",
+          "maxLength": 50
+        },
+        "city": {
+          "type": "string",
+          "description": "Ciudad o municipio de Colombia",
+          "maxLength": 80
+        },
+        "school": {
+          "type": "string",
+          "description": "Institución educativa o colegio",
+          "maxLength": 100
+        },
+        "grade": {
+          "type": "string",
+          "description": "Grado escolar o curso",
+          "maxLength": 30
+        },
+        "badgeTitle": {
+          "type": "string",
+          "description": "Título honorífico de crononauta",
+          "maxLength": 60
+        },
+        "level": {
+          "type": "number",
+          "description": "Nivel alcanzado de crononauta"
+        },
+        "travelJumps": {
+          "type": "number",
+          "description": "Número de saltos en el tiempo realizados"
+        },
+        "xp": {
+          "type": "number",
+          "description": "Puntos de experiencia acumulados"
+        },
+        "streakDays": {
+          "type": "number",
+          "description": "Días continuos de racha de estudio"
+        },
+        "lastEraVisited": {
+          "type": "string",
+          "description": "Última época o año histórico visitado",
+          "maxLength": 100
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Marca de tiempo de la última actualización en formato ISO"
+        }
+      },
+      "required": ["id", "name", "avatarIcon", "city", "school", "xp", "travelJumps"]
+    },
+    "LiveActivity": {
+      "title": "LiveActivity",
+      "description": "Registro de actividad en tiempo real de los crononautas",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identificador único de la actividad"
+        },
+        "travelerId": {
+          "type": "string",
+          "description": "ID del viajero que ejecutó la acción"
+        },
+        "userName": {
+          "type": "string",
+          "description": "Nombre del crononauta",
+          "maxLength": 60
+        },
+        "city": {
+          "type": "string",
+          "description": "Ciudad del crononauta",
+          "maxLength": 80
+        },
+        "action": {
+          "type": "string",
+          "description": "Acción pedagógica realizada",
+          "maxLength": 160
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icono o emoji representativo de la acción",
+          "maxLength": 10
+        },
+        "xpGained": {
+          "type": "number",
+          "description": "XP ganado con la acción"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Marca de tiempo de la acción en formato ISO"
+        }
+      },
+      "required": ["id", "travelerId", "userName", "city", "action", "icon"]
+    }
+  },
+  "firestore": {
+    "/travelers/{travelerId}": {
+      "schema": "TravelerProfile",
+      "description": "Colección de perfiles de viajeros y sus puntajes para el ranking en tiempo real"
+    },
+    "/live_activities/{activityId}": {
+      "schema": "LiveActivity",
+      "description": "Colección de eventos recientes en vivo de los crononautas"
+    }
+  }
+}

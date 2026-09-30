@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidTravelerProfile(data) {
+      return data.keys().hasAll(['id', 'name', 'avatarIcon', 'city', 'school', 'xp', 'travelJumps']) &&
+        data.id is string && data.id.size() > 0 && data.id.size() <= 128 &&
+        data.name is string && data.name.size() > 0 && data.name.size() <= 60 &&
+        data.avatarIcon is string && data.avatarIcon.size() > 0 && data.avatarIcon.size() <= 10 &&
+        data.city is string && data.city.size() <= 80 &&
+        data.school is string && data.school.size() <= 100 &&
+        data.xp is number && data.xp >= 0 && data.xp <= 1000000 &&
+        data.travelJumps is number && data.travelJumps >= 0 && data.travelJumps <= 100000;
+    }
+
+    function isValidLiveActivity(data) {
+      return data.keys().hasAll(['id', 'travelerId', 'userName', 'city', 'action', 'icon']) &&
+        data.id is string && data.id.size() > 0 && data.id.size() <= 128 &&
+        data.travelerId is string && data.travelerId.size() > 0 && data.travelerId.size() <= 128 &&
+        data.userName is string && data.userName.size() > 0 && data.userName.size() <= 60 &&
+        data.city is string && data.city.size() <= 80 &&
+        data.action is string && data.action.size() > 0 && data.action.size() <= 160 &&
+        data.icon is string && data.icon.size() > 0 && data.icon.size() <= 10;
+    }
+
+    // Traveler profiles for public school ranking
+    match /travelers/{travelerId} {
+      allow get: if isValidId(travelerId);
+      allow list: if true;
+      allow create: if isValidId(travelerId) && isValidTravelerProfile(request.resource.data) && request.resource.data.id == travelerId;
+      allow update: if isValidId(travelerId) && isValidTravelerProfile(request.resource.data) && request.resource.data.id == travelerId;
+    }
+
+    // Public live activities feed
+    match /live_activities/{activityId} {
+      allow get: if isValidId(activityId);
+      allow list: if true;
+      allow create: if isValidId(activityId) && isValidLiveActivity(request.resource.data);
+    }
+  }
+}
