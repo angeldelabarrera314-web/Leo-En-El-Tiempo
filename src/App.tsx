@@ -35,6 +35,7 @@ import { StemFairKioskModal } from './components/StemFairKioskModal';
 import { QuantumMindMapModal } from './components/QuantumMindMapModal';
 import { StudentRegistrationModal } from './components/StudentRegistrationModal';
 import { CustomTravelerCharacter } from './services/travelerSyncService';
+import { fetchTimeTravel } from './services/historyEngine';
 import { AchievementBadgeCelebrationToast, AchievementBadge } from './components/AchievementBadgeCelebrationToast';
 
 import { PRESET_ERAS } from './data/presetEras';
@@ -331,18 +332,10 @@ export function App() {
     });
 
     try {
-      const response = await fetch('/api/time-travel', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: year.toString() }),
-      });
-
-      const json = await response.json();
-      if (json.success && json.data) {
-        const resData: TimeTravelResult = json.data;
-        setCurrentResult(resData);
-        sounds.playCoin();
-        triggerConfetti(0.5, 0.3);
+      const resData = await fetchTimeTravel(year);
+      setCurrentResult(resData);
+      sounds.playCoin();
+      triggerConfetti(0.5, 0.3);
 
         // Exploration Streak calculation & rewards (Daily time travel retention)
         const { updatedData: newStreakData, result: streakResult } = recordTravelForStreak(streakData);
@@ -422,7 +415,6 @@ export function App() {
             speakText(spoken);
           }, 200);
         }
-      }
     } catch (err) {
       console.error('Time travel error:', err);
     } finally {

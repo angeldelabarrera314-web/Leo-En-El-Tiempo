@@ -3,6 +3,7 @@ import { BookOpen, Sparkles, Send, Copy, Check, Volume2, Download, HelpCircle, F
 import { HomeworkHelperResult, HomeworkMode } from '../types';
 import { sounds } from '../utils/soundEffects';
 import { triggerConfetti } from '../utils/confetti';
+import { generateHomeworkHelper } from '../services/historyEngine';
 
 interface HomeworkHelperBarProps {
   currentYear: number;
@@ -49,20 +50,14 @@ export const HomeworkHelperBar: React.FC<HomeworkHelperBarProps> = ({
     sounds.playTypewriter();
 
     try {
-      const res = await fetch('/api/homework-helper', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          query: textToSearch,
-          mode: searchMode,
-          currentYear,
-          eraContext,
-        }),
-      });
-
-      const json = await res.json();
-      if (json.success && json.data) {
-        setResult(json.data);
+      const data = await generateHomeworkHelper(
+        textToSearch,
+        searchMode,
+        currentYear,
+        eraContext
+      );
+      if (data) {
+        setResult(data);
         sounds.playCoin();
         triggerConfetti(0.4, 0.3);
         // Reward student for studying!

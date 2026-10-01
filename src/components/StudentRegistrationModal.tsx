@@ -140,28 +140,30 @@ export const StudentRegistrationModal: React.FC<StudentRegistrationModalProps> =
       window.dispatchEvent(new CustomEvent('leo_profile_updated', { detail: profile }));
     }
 
-    // Sync to Cloud Firestore Leaderboard
-    try {
-      await syncCharacterProfileToCloud(
-        profile,
-        currentTravelCount,
-        currentXp,
-        currentStreak,
-        currentEraText
-      );
-      await broadcastLiveActivity(
-        profile,
-        `¡Se unió a la Máquina del Tiempo de la Feria STEM!`,
-        avatarIcon,
-        25
-      );
-    } catch (err) {
-      // offline fallback
-    }
-
+    // Close modal and notify app immediately so the screen never freezes or stays blue
     setIsSubmitting(false);
     onRegistered(profile);
     onClose();
+
+    // Sync to Cloud Firestore Leaderboard in background without blocking the UI
+    syncCharacterProfileToCloud(
+      profile,
+      currentTravelCount,
+      currentXp,
+      currentStreak,
+      currentEraText
+    )
+      .then(() => {
+        broadcastLiveActivity(
+          profile,
+          `¡Se unió a la Máquina del Tiempo de la Feria STEM!`,
+          avatarIcon,
+          25
+        ).catch(() => {});
+      })
+      .catch(() => {
+        // offline fallback
+      });
   };
 
   return (

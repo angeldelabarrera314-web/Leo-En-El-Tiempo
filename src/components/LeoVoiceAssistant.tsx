@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Mic, MicOff, Send, Volume2, VolumeX, Sparkles, MessageSquare, Bot, AlertCircle } from 'lucide-react';
 import { LeoVoiceSettings } from '../types';
+import { askLeoChat } from '../services/historyEngine';
 
 interface LeoVoiceAssistantProps {
   isOpen: boolean;
@@ -131,19 +132,7 @@ export const LeoVoiceAssistant: React.FC<LeoVoiceAssistantProps> = ({
     setLoading(true);
 
     try {
-      const res = await fetch('/api/leo-chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: textToSend,
-          eraContext: currentEraText,
-        }),
-      });
-
-      const data = await res.json();
-      const replyText =
-        data.reply ||
-        'Durante el siglo XX colombiano las familias compartieron profundas transformaciones sociales, avances en la educación y una notable riqueza cultural.';
+      const replyText = await askLeoChat(textToSend, currentEraText);
 
       const leoMessage: ChatMessage = {
         sender: 'leo',

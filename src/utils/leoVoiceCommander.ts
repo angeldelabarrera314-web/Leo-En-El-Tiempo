@@ -1,6 +1,7 @@
 // Enhanced Voice Command Recognition, Wake Word Detection & Dispatcher for "Leo en el Tiempo"
 import { sounds } from './soundEffects';
 import { triggerConfetti } from './confetti';
+import { askLeoChat } from '../services/historyEngine';
 
 export interface CommandAction {
   type:
@@ -382,22 +383,11 @@ export async function executeVoiceCommandAsync(
     return action;
   }
 
-  // Query /api/leo-chat for intelligent educational response
+  // Query askLeoChat for intelligent educational response with zero-failure fallback
   try {
-    const res = await fetch('/api/leo-chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: text,
-        eraContext: eraContext || 'Colombia en el Siglo XX',
-      }),
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      if (data.reply) {
-        action.leoResponse = data.reply;
-      }
+    const reply = await askLeoChat(text, eraContext || 'Colombia en el Siglo XX');
+    if (reply) {
+      action.leoResponse = reply;
     }
   } catch (err) {
     // If offline or network issue, fallback answer is already provided in parseVoiceCommand

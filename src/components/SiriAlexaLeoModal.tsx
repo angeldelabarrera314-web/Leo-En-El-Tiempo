@@ -4,6 +4,7 @@ import { LeoVoiceSettings } from '../types';
 import { sounds } from '../utils/soundEffects';
 import { triggerConfetti } from '../utils/confetti';
 import { leoVoice } from '../utils/leoVoice';
+import { askLeoChat } from '../services/historyEngine';
 
 interface SiriAlexaLeoModalProps {
   isOpen: boolean;
@@ -154,20 +155,7 @@ export const SiriAlexaLeoModal: React.FC<SiriAlexaLeoModalProps> = ({
     }
 
     try {
-      const res = await fetch('/api/leo-chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: queryText,
-          eraContext: currentEraText,
-        }),
-      });
-
-      const data = await res.json();
-      const reply =
-        data.reply ||
-        'Durante el siglo XX en Colombia vivimos inventos asombrosos, desde los trenes cafeteros hasta la primera señal de televisión nacional.';
-
+      const reply = await askLeoChat(queryText, currentEraText);
       setLeoReply(reply);
       if (detectedYear) {
         setSuggestedYear(detectedYear);
