@@ -727,7 +727,7 @@ export const TravelerRankingModal: React.FC<TravelerRankingModalProps> = ({
                   <span className="text-[9px] text-slate-400">Desarrollador</span>
                 </div>
                 <div className="bg-[#0b1326] p-2 rounded-xl border border-sky-400/20 font-bold text-slate-200 flex items-center justify-between">
-                  <span>👨‍💻 JUAN JAVIER SIERRA BARRIOS</span>
+                  <span>👨‍💻 GABRIEL DAVID DÍAS BALLESTEROS</span>
                   <span className="text-[9px] text-slate-400">Desarrollador</span>
                 </div>
                 <div className="bg-[#0b1326] p-2 rounded-xl border border-sky-400/20 font-bold text-slate-200 flex items-center justify-between">

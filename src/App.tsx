@@ -1381,7 +1381,7 @@ export function App() {
               👨‍💻 JUAN CAMILO MANGONES MIRANDA (Desarrollador)
             </span>
             <span className="bg-[#0f1b36] border border-indigo-400/40 text-indigo-200 px-3 py-1 rounded-full font-bold shadow-xs">
-              👨‍💻 JUAN JAVIER SIERRA BARRIOS (Desarrollador)
+              👨‍💻 GABRIEL DAVID DÍAS BALLESTEROS (Desarrollador)
             </span>
             <span className="bg-[#0f1b36] border border-emerald-400/40 text-emerald-200 px-3 py-1 rounded-full font-bold shadow-xs">
               👨‍💻 JESSY ALDAIR LUGO SOTO (Desarrollador)
