@@ -1389,6 +1389,9 @@ export function App() {
             <span className="bg-[#0f1b36] border border-purple-400/40 text-purple-200 px-3 py-1 rounded-full font-bold shadow-xs">
               👨‍💻 JULIAN JAVIER RODRÍGUEZ VARGAS (Desarrollador)
             </span>
+            <span className="bg-[#0f1b36] border border-rose-400/40 text-rose-200 px-3 py-1 rounded-full font-bold shadow-xs">
+              👨‍💻 MAURO ANDRE GONZÁLEZ PALACIOS (Desarrollador)
+            </span>
           </div>
         </div>
       </footer>

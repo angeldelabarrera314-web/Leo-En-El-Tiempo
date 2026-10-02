@@ -308,6 +308,7 @@ export const SteamInfoModal: React.FC<SteamInfoModalProps> = ({ isOpen, onClose 
                 { name: 'GABRIEL DAVID DÍAS BALLESTEROS', role: 'Desarrollador', isLead: false },
                 { name: 'JESSY ALDAIR LUGO SOTO', role: 'Desarrollador', isLead: false },
                 { name: 'JULIAN JAVIER RODRÍGUEZ VARGAS', role: 'Desarrollador', isLead: false },
+                { name: 'MAURO ANDRE GONZÁLEZ PALACIOS', role: 'Desarrollador', isLead: false },
               ].map((dev, idx) => (
                 <div
                   key={idx}

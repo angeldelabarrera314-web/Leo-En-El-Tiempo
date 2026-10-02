@@ -734,8 +734,12 @@ export const TravelerRankingModal: React.FC<TravelerRankingModalProps> = ({
                   <span>👨‍💻 JESSY ALDAIR LUGO SOTO</span>
                   <span className="text-[9px] text-slate-400">Desarrollador</span>
                 </div>
-                <div className="bg-[#0b1326] p-2 rounded-xl border border-sky-400/20 font-bold text-slate-200 sm:col-span-2 md:col-span-3 flex items-center justify-between">
+                <div className="bg-[#0b1326] p-2 rounded-xl border border-sky-400/20 font-bold text-slate-200 flex items-center justify-between">
                   <span>👨‍💻 JULIAN JAVIER RODRÍGUEZ VARGAS</span>
+                  <span className="text-[9px] text-slate-400">Desarrollador</span>
+                </div>
+                <div className="bg-[#0b1326] p-2 rounded-xl border border-sky-400/20 font-bold text-slate-200 sm:col-span-2 md:col-span-2 flex items-center justify-between">
+                  <span>👨‍💻 MAURO ANDRE GONZÁLEZ PALACIOS</span>
                   <span className="text-[9px] text-slate-400">Desarrollador</span>
                 </div>
               </div>
